@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<html lang="">
+<head>
+
+  
+  <meta charset="UTF-8">
+  <title>
+    使用vim搭建强大的Python IDE | Jelly&#39;s Book
+  </title>
+
+
+  
+  <meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1,initial-scale=1">
+
+  
+  <link rel="canonical" href="http://jellynian.me/post/2018-03-02-setup-amazing-python-ide-based-on-vim/"/>
+
+  
+  <link rel="stylesheet" href="http://jellynian.me/css/sanitize.css">
+  <link rel="stylesheet" href="http://jellynian.me/css/responsive.css">
+  <link rel="stylesheet" href="http://jellynian.me/css/highlight_monokai.css">
+  <link rel="stylesheet" href="http://jellynian.me/css/theme.css">
+  <link rel="stylesheet" href="http://jellynian.me/css/custom.css">
+  
+  
+  <link href="http://jellynian.meindex.xml" rel="alternate" type="application/rss+xml" title="Jelly&#39;s Book" />
+  <link href="http://jellynian.meindex.xml" rel="feed" type="application/rss+xml" title="Jelly&#39;s Book" />
+
+  
+  
+
+
+</head>
+
+
+
+<body>
+<div class="container">
+
+  
+  <header role="banner">
+    <div class="row gutters">
+      <div id="site-title" class="col span_6">
+        <h1><a href="http://jellynian.me">Jelly&#39;s Book</a></h1>
+        <h2>Golang开发者/Linux运维工程师</h2>
+      </div>
+      <div id="social" class="col span_6">
+        <ul>
+          
+          <li><a href="https://github.com/jellynian" target="_blank">SegmentFault</a></li>
+          
+          <li><a href="https://github.com/jellynian" target="_blank">GitHub</a></li>
+          <li><a href="http://jellynian.meindex.xml" type="application/rss+xml" target="_blank">RSS</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+
+  
+  <main id="single" role="main">
+    <div class="article-header">
+      <h1>使用vim搭建强大的Python IDE</h1>
+      <div class="meta">
+        Mar 2, 2018 &nbsp;
+        
+          #<a href="http://jellynian.me/tags/vim">vim</a>&nbsp;
+        
+          #<a href="http://jellynian.me/tags/python">python</a>&nbsp;
+        
+      </div>
+    </div>
+    <article>
+      
+
+<h1 id="安装vim8">安装vim8</h1>
+
+<p>ubuntu 16.04 默认的vim为vim7，我们需要较为新的vim8 来支持更多的新特性。你可以使用命令 <code>vim --version</code> 来查看你本机的vim 版本。</p>
+
+<pre><code>sudo add-apt-repository ppa:jonathonf/vim -y
+sudo apt update
+sudo apt install vim
+</code></pre>
+
+<p>macos 安装则使用brew即可</p>
+
+<pre><code>brew install vim 
+</code></pre>
+
+<h1 id="安装vim插件管理工具-vundle">安装vim插件管理工具 Vundle</h1>
+
+<p>管理vim插件的工具有很多，我曾经使用过的有 <a href="https://github.com/junegunn/vim-plug">vim-plug</a> 和 Vundle 这里我们推荐<a href="https://github.com/VundleVim/Vundle.vim">Vundle</a>.</p>
+
+<p>安装Vundle</p>
+
+<pre><code>git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+</code></pre>
+
+<p>在 <code>~/.vimrc</code> 文件中写入如下内容,写入完毕后保存退出，后续的文章会告诉大家每一个插件的作用。</p>
+
+<pre><code>set nocompatible              &quot; be iMproved, required
+
+&quot; set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin('~/.vim/bundle/')
+&quot; alternatively, pass a path where Vundle should install plugins
+&quot;call vundle#begin('~/some/path/here')
+
+&quot; let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'                                                                                                                                                                               
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'scrooloose/nerdtree'
+Plugin 'w0rp/ale'
+Plugin 'tomasr/molokai'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'jnurmine/Zenburn'
+Plugin 'vim-scripts/minibufexplorerpp'
+Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'kien/ctrlp.vim'
+Plugin 'Chiel92/vim-autoformat'
+Plugin 'tell-k/vim-autopep8'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'Yggdroot/indentLine'
+&quot; All of your Plugins must be added before the following line
+call vundle#end()            &quot; required
+filetype plugin indent on    &quot; required
+</code></pre>
+
+<p>可以看到 <code>call vundle#end()</code>  和 <code>call vundle#begin('~/.vim/bundle/')</code> 之间的内容是插件列表，这些插件的命名方式其实是 github的用户名和仓库名组成的，在vim中执行  <code>BundleInstall</code>
+命令，其实是通过git 来克隆这些仓库，来达到安装插件的目的。</p>
+
+<p><img src="http://jellynian.me/img/vim-vundle.png" alt="" /></p>
+
+<h1 id="安装插件">安装插件</h1>
+
+<p>在vim中执行 <code>BundleInstall</code> Vundle插件会调用git下载列表中的插件。
+注意 &lsquo;Valloric/YouCompleteMe&rsquo; 插件需要下载各种依赖，可能需要花费大量的时间如果下载中断，你可以直接执行,来安装YouCompleteMe</p>
+
+<pre><code>git clone --recursive https://github.com/Valloric/YouCompleteMe.git  ~/.vim/bundle/YouCompleteMe
+git submodule update --init --recursive   # 检查git仓库完整性
+</code></pre>
+
+<h1 id="编译youcompleteme">编译YouCompleteMe</h1>
+
+<pre><code>cd ~/.vim/bundle/YouCompleteMe
+sudo apt install build-essential cmake
+./install.py  # 如果你需要c/c++的自动提示支持，可以添加参数 --clang-completer
+</code></pre>
+
+<h1 id="插件介绍">插件介绍</h1>
+
+<pre><code>Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'scrooloose/nerdtree'
+Plugin 'w0rp/ale'
+Plugin 'tomasr/molokai'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'jnurmine/Zenburn'
+Plugin 'vim-scripts/minibufexplorerpp'
+Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'kien/ctrlp.vim'
+Plugin 'Chiel92/vim-autoformat'
+Plugin 'tell-k/vim-autopep8'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'Yggdroot/indentLine'
+</code></pre>
+
+<h2 id="vim-airline">vim-airline</h2>
+
+<p>这是一款漂亮底部提示条插件，拥有着漂亮的外观</p>
+
+<h2 id="scrooloose-nerdtree">scrooloose/nerdtree</h2>
+
+<p>这是一款好用的文件列表插件</p>
+
+<h2 id="ale">ale</h2>
+
+<p>这是一款语法检查插件</p>
+
+    </article>
+    
+ 
+	<div id="container"></div>
+	<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+	<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+	<script>
+	var gitment = new Gitment({
+	  id: '', 
+	  owner: 'jellynian',
+	  repo: 'jellynian.github.io',
+	  oauth: {
+	    client_id: 'cd6bbe866a499164e4fe',
+	    client_secret: '7167a6ab27aa68acc60bef19dabc889c881a4f48',
+	  },
+	})
+	gitment.render('container')
+	</script>
+
+  </main>
+  
+  <nav class="pagination-single">
+    
+      <span class="previous">&larr; <a href="http://jellynian.me/post/2018-02-7-openstack-build-kali-image/" rel="prev">openstack kali linux 镜像制作</a></span>
+    
+    
+      <span class="next"><a href="http://jellynian.me/post/2018-03-14-docker-simple-base-tutor/" rel="next">docker 精简基础教程</a> &rarr;</span>
+    
+  </nav>
+
+
+  
+  <footer role="contentinfo">
+    <div style="text-align:center;">
+      <img src="http://jellynian.me/img/29446726.jpeg" width="48" height="48"><br>
+      Copyright (c) 2008 - 2018, Jelly Nian  all rights reserved.
+    </div>
+     <div>
+      <br>
+    </div>
+    <div style="text-align: center;" id="social">
+          <li><a href="http://jellynian.me/about/" target="_blank">关于我</a></li>
+          <li><a href="mailto://jellynian6@gmail.com" target="_blank">联系我</a></li>
+          <li><a href="http://jellynian.me/about/" target="_blank">个人作品</a></li>
+          <li><a href="http://jellynian.me/tags/" target="_blank">文章分类</a></li>
+    </div>
+  </footer>
+
+</div>
+
+<script src="http://jellynian.me/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+</body>
+</html>
+

@@ -1,0 +1,286 @@
+
+<!DOCTYPE html>
+<html lang="">
+<head>
+
+  
+  <meta charset="UTF-8">
+  <title>
+    Ucloud配置haproxy&#43;keepalived(利用ucloud-API实现外网浮动IP切换) | Jelly&#39;s Book
+  </title>
+
+
+  
+  <meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1,initial-scale=1">
+
+  
+  <link rel="canonical" href="http://jellynian.me/post/2018-01-27-haproxy-keepalived-ucloud/"/>
+
+  
+  <link rel="stylesheet" href="http://jellynian.me/css/sanitize.css">
+  <link rel="stylesheet" href="http://jellynian.me/css/responsive.css">
+  <link rel="stylesheet" href="http://jellynian.me/css/highlight_monokai.css">
+  <link rel="stylesheet" href="http://jellynian.me/css/theme.css">
+  <link rel="stylesheet" href="http://jellynian.me/css/custom.css">
+  
+  
+  <link href="http://jellynian.meindex.xml" rel="alternate" type="application/rss+xml" title="Jelly&#39;s Book" />
+  <link href="http://jellynian.meindex.xml" rel="feed" type="application/rss+xml" title="Jelly&#39;s Book" />
+
+  
+  
+
+
+</head>
+
+
+
+<body>
+<div class="container">
+
+  
+  <header role="banner">
+    <div class="row gutters">
+      <div id="site-title" class="col span_6">
+        <h1><a href="http://jellynian.me">Jelly&#39;s Book</a></h1>
+        <h2>Golang开发者/Linux运维工程师</h2>
+      </div>
+      <div id="social" class="col span_6">
+        <ul>
+          
+          <li><a href="https://github.com/jellynian" target="_blank">SegmentFault</a></li>
+          
+          <li><a href="https://github.com/jellynian" target="_blank">GitHub</a></li>
+          <li><a href="http://jellynian.meindex.xml" type="application/rss+xml" target="_blank">RSS</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+
+  
+  <main id="single" role="main">
+    <div class="article-header">
+      <h1>Ucloud配置haproxy&#43;keepalived(利用ucloud-API实现外网浮动IP切换)</h1>
+      <div class="meta">
+        Jan 27, 2018 &nbsp;
+        
+          #<a href="http://jellynian.me/tags/sysadmin">sysadmin</a>&nbsp;
+        
+      </div>
+    </div>
+    <article>
+      
+
+<h1 id="背景">背景</h1>
+
+<p>先交代下事情发生的背景，公司在使用ucloud的负载均衡产品的过程中由于某种特殊的需求必须要自建外网负载均衡器，由于ucloud的云主机使用nat地址转化技术，外网IP的数据包被转发到了内网IP，而且外网IP是与云主机绑定的，所以就不能用传统的方式实现外网haproxy服务的高可用了，但是ucloud实现了切换公网IP的api，我们让keepalived在另一台机器挂掉的时候调用api来将该机器的外网浮动IP解除绑定，然后绑定到自己身上，api切换的时间极短保证了线上负载均衡器故障能够迅速切换。</p>
+
+<h1 id="安装keepalived">安装keepalived</h1>
+
+<pre><code>sudo apt update 
+sudo apt install keepalived -y
+</code></pre>
+
+<h1 id="准备脚本">准备脚本</h1>
+
+<h2 id="下载ucloud-sdk">下载ucloud sdk</h2>
+
+<pre><code>git clone https://github.com/ucloud/ucloud-sdk-python.git /etc/keepalived/script #下载ucloud python sdk 到 /etc/keepalived/script目录
+cd /etc/keepalived/script  # 进入 script 目录 
+cp config.simple.py config.py   # 复制config.simple.py模板文件
+</code></pre>
+
+<h2 id="编写脚本">编写脚本</h2>
+
+<p>修改 config.py 文件，</p>
+
+<pre><code>#配置公私钥&quot;&quot;&quot;
+public_key  = &quot;&quot; #你的公钥
+private_key = &quot;&quot; #你的私钥
+project_id = &quot;&quot; # 项目ID 请在Dashbord 上获取
+
+&quot;&quot;&quot;
+#添加以下内容
+EIPID=&quot;eip-lb011e&quot;  #你需要浮动的EIP的ID
+MYUHOSTID=&quot;uhost-33eitwa&quot;  #脚本部署在这台机器的ID，可在控制台上查看 注意，你脚本部署在哪台机器这个ID就是哪台机器的ID
+PEERUHOSTID=&quot;uhost-333xvs&quot; # 另一台机器的ID 
+REGION=&quot;hk&quot;  #地区 Region 可在ucloud官网查阅
+</code></pre>
+
+<p>接下来修改 bind_eip.py 将Parameters段参照以下内容修改</p>
+
+<pre><code>Parameters={
+    &quot;Action&quot;:&quot;BindEIP&quot;,
+    &quot;EIPId&quot;:EIPID,
+    &quot;ResourceId&quot;:MYUHOSTID,
+    &quot;ResourceType&quot;:&quot;uhost&quot;,
+    &quot;Region&quot;:REGION
+}
+</code></pre>
+
+<p>修改 unbind_eip.py 将Parameters段参照以下内容修改</p>
+
+<pre><code>Parameters={
+    &quot;Action&quot;:&quot;UnBindEIP&quot;,
+    &quot;EIPId&quot;:EIPID,
+    &quot;ResourceId&quot;:PEERUHOSTID,
+     &quot;ResourceType&quot;:&quot;uhost&quot;,
+    &quot;Region&quot;:REGION
+}
+</code></pre>
+
+<p>新建脚本  slave2master.sh</p>
+
+<pre><code>#!/bin/bash
+python  /etc/keepalived/script/unbind_eip.py  #先把IP从故障的那台机器解绑
+python /etc/keepalived/script/bind_eip.py     # 再绑定到本机上
+</code></pre>
+
+<p>编写一个故障检查脚本 check_haproxy.sh</p>
+
+<pre><code>#!/bin/bash
+GREP_OPTIONS=&quot;&quot;
+Count1=`netstat -antp |grep -v grep |grep haproxy |wc -l`
+
+if [ $Count1 -eq 0  ]; then
+exit 1  #keepalived 调用这个脚本，当退出值不为0就认为本机故障
+fi
+exit 0
+</code></pre>
+
+<h1 id="编写-keepalived的配置文件">编写 keepalived的配置文件</h1>
+
+<h2 id="slave的配置文件参考">slave的配置文件参考</h2>
+
+<pre><code>! Configuration File for keepalived
+
+global_defs {
+          router_id xxx-lb-test
+}
+
+vrrp_script chk_haproxy {
+        script &quot;/etc/keepalived/check_haproxy.sh&quot; 
+        interval 2 
+
+}
+
+vrrp_instance VI_1 {
+
+    unicast_peer {
+        10.8.100.13    !另一台机器(master)的IP                  
+    }
+        state BACKUP   !默认进入backup模式
+        interface eth0
+        virtual_router_id 194
+        priority 10
+        weight 5
+        !    nopreempt
+        advert_int 1
+        authentication {
+            auth_type PASS
+            auth_pass e8qvAwPTWgCEepUKCQ4tN
+        }
+        track_script {
+                   chk_haproxy                   
+        }
+            notify_master /etc/keepalived/script/slave2master.sh   #一旦master出现故障该脚本就会被执行
+
+}
+</code></pre>
+
+<h2 id="master的配置文件-参考">master的配置文件 参考</h2>
+
+<pre><code>! Configuration File for keepalived
+
+global_defs {
+    router_id xxx-lb-test
+}
+
+vrrp_script chk_haproxy {
+    script &quot;/etc/keepalived/check_haproxy.sh&quot; 
+    interval 2 
+}
+
+
+
+vrrp_instance VI_1 {
+
+    unicast_peer {
+        10.8.126.62  # Slave 的IP            
+    }
+    state MASTER #默认为 MASTER
+    interface eth0
+    virtual_router_id 194
+    priority 100
+    !    nopreempt
+    advert_int 1
+    authentication {
+        auth_type PASS
+        auth_pass e8qvAwPTWgCEepUKCQ4tN
+        }
+    track_script {
+           chk_haproxy
+    }
+    notify_master /etc/keepalived/script/slave2master.sh #一旦slave出现故障该脚本就会被执行
+}
+</code></pre>
+
+    </article>
+    
+ 
+	<div id="container"></div>
+	<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+	<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+	<script>
+	var gitment = new Gitment({
+	  id: '', 
+	  owner: 'jellynian',
+	  repo: 'jellynian.github.io',
+	  oauth: {
+	    client_id: 'cd6bbe866a499164e4fe',
+	    client_secret: '7167a6ab27aa68acc60bef19dabc889c881a4f48',
+	  },
+	})
+	gitment.render('container')
+	</script>
+
+  </main>
+  
+  <nav class="pagination-single">
+    
+      <span class="previous">&larr; <a href="http://jellynian.me/post/2018-01-27-linux%E5%BF%AB%E9%80%9F%E9%87%8D%E5%A4%8D%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%80%E6%9D%A1%E5%91%BD%E4%BB%A4/" rel="prev">在Linux命令行如何执行上一条命令</a></span>
+    
+    
+      <span class="next"><a href="http://jellynian.me/post/2018-02-7-openstack-build-kali-image/" rel="next">openstack kali linux 镜像制作</a> &rarr;</span>
+    
+  </nav>
+
+
+  
+  <footer role="contentinfo">
+    <div style="text-align:center;">
+      <img src="http://jellynian.me/img/29446726.jpeg" width="48" height="48"><br>
+      Copyright (c) 2008 - 2018, Jelly Nian  all rights reserved.
+    </div>
+     <div>
+      <br>
+    </div>
+    <div style="text-align: center;" id="social">
+          <li><a href="http://jellynian.me/about/" target="_blank">关于我</a></li>
+          <li><a href="mailto://jellynian6@gmail.com" target="_blank">联系我</a></li>
+          <li><a href="http://jellynian.me/about/" target="_blank">个人作品</a></li>
+          <li><a href="http://jellynian.me/tags/" target="_blank">文章分类</a></li>
+    </div>
+  </footer>
+
+</div>
+
+<script src="http://jellynian.me/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+</body>
+</html>
+

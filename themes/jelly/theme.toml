@@ -1,0 +1,22 @@
+name = "Angel's Ladder"
+license = "MIT"
+licenselink = "https://github.com/tanksuzuki/angels-ladder/blob/master/LICENSE.md"
+description = "Angel's Ladder is a simple blog theme for Hugo."
+homepage = "http://tanksuzuki.com/"
+tags = ["blog"]
+features = ["blog"]
+min_version = 0.13
+
+[author]
+    name = "tanksuzuki"
+    homepage = "http://tanksuzuki.com/"
+    subtitle = "I would like to be a layer 3 switch."
+facebook = "https://facebook.com/foobar"
+twitter = "https://twitter.com/foobar"
+github = "https://github.com/foobar"
+showsRSS = true
+profile = "/images/profile.png"
+copyright = "Written by Asuka Suzuki"
+analytics = "UA-XXXXXXXX-X"
+shareThis = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+

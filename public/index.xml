@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jelly&#39;s Book</title>
+    <link>http://jellynian.me/</link>
+    <description>Recent content on Jelly&#39;s Book</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 02 Apr 2018 14:04:38 +0000</lastBuildDate>
+    
+	<atom:link href="http://jellynian.me/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>about|关于</title>
+      <link>http://jellynian.me/about/</link>
+      <pubDate>Mon, 02 Apr 2018 14:04:38 +0000</pubDate>
+      
+      <guid>http://jellynian.me/about/</guid>
+      <description>Welcome !
+My Name is NianZhiShuang (You can also call me Jelly Nian),
+I am a development engineer working at heartsquare.com in Shanghai.
+Skills    Skill Description     Golang 用作后端开发，网站开发,是现在吃饭的家伙   sysadmin 熟练掌握 Python,shell，Linux下各种服务的搭建和维护,Zabbix监控, 虚拟化技术(OpenStack，VMware ESXi和 Docker以及KVM (libvirt-bin) ) 的使用和搭建，熟悉Nginx和Haproxy负载均衡，MySQL，Redis 等的维护与高可用等.   JavaScript 入门级水平，简单修改别人的源代码，远不到前端设计的境界   Shell 主要使用Bash，发行版为Ubuntu/Debian、CentOS/RHEL Archlinux   mysql 数据库主要使用Mysql   python 用作数据统计分析，运维开发   C/C++ 软件工程专业毕业，C语言用的贼6 可惜不从事这方面的开发,后来研究过一段时间c++11,可以使用boost和c++11 编写基本的后端应用    About Me|关于我 你们好，我叫年志双 我是一个开发者，野生程序猿，南阳理工学院开源镜像站的官方维护者.</description>
+    </item>
+    
+    <item>
+      <title>docker 精简基础教程</title>
+      <link>http://jellynian.me/post/2018-03-14-docker-simple-base-tutor/</link>
+      <pubDate>Wed, 14 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://jellynian.me/post/2018-03-14-docker-simple-base-tutor/</guid>
+      <description>安装docker  官方文档的参考链接 https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce-1
+ 卸载旧版本docker
+sudo apt-get remove docker docker-engine docker.io sudo apt install software-properties-common #安装工具  信任密钥:
+ curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -  添加源:
+ sudo add-apt-repository &amp;quot;deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable&amp;quot;  安装docker
+sudo apt-get install docker-ce -y  默认情况下，docker 命令会使用Unix socket 与 Docker 引擎通讯。而只有root用户和docker 组的用户才可以访问 Docker 引擎的 Unix socket。出于 安全考虑，一般 Linux 系统上不会直接使用root 用户。因此，更好地做法是将 需要使用 docker 的用户加入 docker 用户组。
+如果不存在docker组则建立 docker 组：</description>
+    </item>
+    
+    <item>
+      <title>使用vim搭建强大的Python IDE</title>
+      <link>http://jellynian.me/post/2018-03-02-setup-amazing-python-ide-based-on-vim/</link>
+      <pubDate>Fri, 02 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://jellynian.me/post/2018-03-02-setup-amazing-python-ide-based-on-vim/</guid>
+      <description>安装vim8 ubuntu 16.04 默认的vim为vim7，我们需要较为新的vim8 来支持更多的新特性。你可以使用命令 vim --version 来查看你本机的vim 版本。
+sudo add-apt-repository ppa:jonathonf/vim -y sudo apt update sudo apt install vim  macos 安装则使用brew即可
+brew install vim  安装vim插件管理工具 Vundle 管理vim插件的工具有很多，我曾经使用过的有 vim-plug 和 Vundle 这里我们推荐Vundle.
+安装Vundle
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim  在 ~/.vimrc 文件中写入如下内容,写入完毕后保存退出，后续的文章会告诉大家每一个插件的作用。
+set nocompatible &amp;quot; be iMproved, required &amp;quot; set the runtime path to include Vundle and initialize set rtp+=~/.vim/bundle/Vundle.vim call vundle#begin(&#39;~/.vim/bundle/&#39;) &amp;quot; alternatively, pass a path where Vundle should install plugins &amp;quot;call vundle#begin(&#39;~/some/path/here&#39;) &amp;quot; let Vundle manage Vundle, required Plugin &#39;VundleVim/Vundle.</description>
+    </item>
+    
+    <item>
+      <title>openstack kali linux 镜像制作</title>
+      <link>http://jellynian.me/post/2018-02-7-openstack-build-kali-image/</link>
+      <pubDate>Wed, 07 Feb 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://jellynian.me/post/2018-02-7-openstack-build-kali-image/</guid>
+      <description>概述  公司网络安全部门需要在我司私有云平台上搭建kali linux的云主机，用以进行渗透测试等服务，在互联网上搜索了很久也没有发现有现成的镜像可以使用，因此就自己制作了,镜像下载地址:http://jellynian.ufile.ucloud.com.cn/kali_xfce.qcow2, 镜像默认用户debian默认密码kalidebian 在此附上具体的制作教程。
+ 环境准备 操作系统: ubuntu操作系统（作者使用的是ubuntu16.04 主机IP为：10.0.3.102） 到任意一个镜像站下载kali linux的镜像，这里使用的是南阳理工学院的开源镜像 https://mirror.nyist.edu.cn/kali-images/
+# 安装virsh libvirt-bin apt-get install libvirt-bin qemu-kvm qemu-utils -y # 下载基础镜像(存储目录为 /var/lib/libvirt/) wget https://mirror.nyist.edu.cn/kali-images/current/kali-linux-xfce-2018.1-amd64.iso \ -O /var/lib/libvirt/kali-linux-xfce-2018.1-amd64.iso  创建img 磁盘 执行以下命令创建qcow2磁盘
+qemu-img create -f qcow2 /var/lib/libvirt/kali.qcow2 10G # 由于kali预装了大量软件，经测试 10G的基础磁盘大小是较为合适的， #作者曾经测试过2G，3G，5G等大小都失败了（或许是作者的测试方式有问题，您可以做更多的尝试）  开始制作  virt-install --virt-type kvm --name kali --ram 1024 \ --cdrom=/var/lib/libvirt/kali-linux-xfce-2018.1-amd64.iso \ --disk /var/lib/libvirt/kali.qcow2 \ --network network=default \ --graphics vnc,listen=0.0.0.0 --noautoconsole \ --os-type=linux --os-variant=debianwheezy  使用vnc客户端连接vnc 在vnc客户端直接输入宿主机的IP 即可连接,按照正常的流程安装此虚拟机，不过要注意的是磁盘分区不要使用lvm分区，将所有文件放入一个分区即可，使用整个磁盘,因为openstack在创建虚拟机时默认是自动分区，剩余的磁盘空间可以自动的加入此分区，如果你选择了lvm或者分了多个分区可能会导致自动分区无法正常工作(此为本人测试后的结果，可能存在一定的疏漏)。安装完成后,镜像会关机退出，我们使用 virsh list --all 来查看当前运行的所有机器，并使用virsh start kali 来启动该机器并再次使用vnc连接</description>
+    </item>
+    
+    <item>
+      <title>Ucloud配置haproxy&#43;keepalived(利用ucloud-API实现外网浮动IP切换)</title>
+      <link>http://jellynian.me/post/2018-01-27-haproxy-keepalived-ucloud/</link>
+      <pubDate>Sat, 27 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://jellynian.me/post/2018-01-27-haproxy-keepalived-ucloud/</guid>
+      <description>背景 先交代下事情发生的背景，公司在使用ucloud的负载均衡产品的过程中由于某种特殊的需求必须要自建外网负载均衡器，由于ucloud的云主机使用nat地址转化技术，外网IP的数据包被转发到了内网IP，而且外网IP是与云主机绑定的，所以就不能用传统的方式实现外网haproxy服务的高可用了，但是ucloud实现了切换公网IP的api，我们让keepalived在另一台机器挂掉的时候调用api来将该机器的外网浮动IP解除绑定，然后绑定到自己身上，api切换的时间极短保证了线上负载均衡器故障能够迅速切换。
+安装keepalived sudo apt update sudo apt install keepalived -y  准备脚本 下载ucloud sdk git clone https://github.com/ucloud/ucloud-sdk-python.git /etc/keepalived/script #下载ucloud python sdk 到 /etc/keepalived/script目录 cd /etc/keepalived/script # 进入 script 目录 cp config.simple.py config.py # 复制config.simple.py模板文件  编写脚本 修改 config.py 文件，
+#配置公私钥&amp;quot;&amp;quot;&amp;quot; public_key = &amp;quot;&amp;quot; #你的公钥 private_key = &amp;quot;&amp;quot; #你的私钥 project_id = &amp;quot;&amp;quot; # 项目ID 请在Dashbord 上获取 &amp;quot;&amp;quot;&amp;quot; #添加以下内容 EIPID=&amp;quot;eip-lb011e&amp;quot; #你需要浮动的EIP的ID MYUHOSTID=&amp;quot;uhost-33eitwa&amp;quot; #脚本部署在这台机器的ID，可在控制台上查看 注意，你脚本部署在哪台机器这个ID就是哪台机器的ID PEERUHOSTID=&amp;quot;uhost-333xvs&amp;quot; # 另一台机器的ID REGION=&amp;quot;hk&amp;quot; #地区 Region 可在ucloud官网查阅  接下来修改 bind_eip.</description>
+    </item>
+    
+    <item>
+      <title>在Linux命令行如何执行上一条命令</title>
+      <link>http://jellynian.me/post/2018-01-27-linux%E5%BF%AB%E9%80%9F%E9%87%8D%E5%A4%8D%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%80%E6%9D%A1%E5%91%BD%E4%BB%A4/</link>
+      <pubDate>Sat, 27 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://jellynian.me/post/2018-01-27-linux%E5%BF%AB%E9%80%9F%E9%87%8D%E5%A4%8D%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%80%E6%9D%A1%E5%91%BD%E4%BB%A4/</guid>
+      <description>有 4 种方法可以重复执行上一条命令：
+使用上方向键，并回车执行。
+按 !! 并回车执行。
+输入 !-1 并回车执行。
+按 Ctrl+P 并回车执行。
+其中 !-2 代表执行上上条命令 !-3 代表执行上上上条命令以此类推</description>
+    </item>
+    
+    <item>
+      <title>通配符SSL证书是否支持3级子域名</title>
+      <link>http://jellynian.me/post/2018-01-27-%E9%80%9A%E9%85%8D%E7%AC%A6ssl%E8%AF%81%E4%B9%A6%E6%98%AF%E5%90%A6%E6%94%AF%E6%8C%813%E7%BA%A7%E5%AD%90%E5%9F%9F%E5%90%8D/</link>
+      <pubDate>Sat, 27 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://jellynian.me/post/2018-01-27-%E9%80%9A%E9%85%8D%E7%AC%A6ssl%E8%AF%81%E4%B9%A6%E6%98%AF%E5%90%A6%E6%94%AF%E6%8C%813%E7%BA%A7%E5%AD%90%E5%9F%9F%E5%90%8D/</guid>
+      <description>所有品牌的通配符SSL证书只能支持域名本身及下一级的所有子域名，而不是无限级支持子域名。
+ 举例说明：
+ 用户为domain.com购买通配符SSL证书 *.domain.com，该证书可以保护
+mail.domain.com login.domain.com test.domain.com vpn.domain.com
+  但该证书无法保护3级子yum.mail.doamin.com，对于该域名证书无效。</description>
+    </item>
+    
+  </channel>
+</rss>
