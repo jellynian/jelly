@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="">
+<head>
+
+  
+  <meta charset="UTF-8">
+  <title>
+    Openstack | Jelly&#39;s Book
+  </title>
+
+
+  
+  <meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1,initial-scale=1">
+
+  
+  <link rel="canonical" href="http://jellynian.me/tags/openstack/"/>
+
+  
+  <link rel="stylesheet" href="http://jellynian.me/css/sanitize.css">
+  <link rel="stylesheet" href="http://jellynian.me/css/responsive.css">
+  <link rel="stylesheet" href="http://jellynian.me/css/highlight_monokai.css">
+  <link rel="stylesheet" href="http://jellynian.me/css/theme.css">
+  <link rel="stylesheet" href="http://jellynian.me/css/custom.css">
+  
+  
+  <link href="http://jellynian.meindex.xml" rel="alternate" type="application/rss+xml" title="Jelly&#39;s Book" />
+  <link href="http://jellynian.meindex.xml" rel="feed" type="application/rss+xml" title="Jelly&#39;s Book" />
+
+  
+  
+
+
+</head>
+
+
+
+<body>
+<div class="container">
+
+  
+  <header role="banner">
+    <div class="row gutters">
+      <div id="site-title" class="col span_6">
+        <h1><a href="http://jellynian.me">Jelly&#39;s Book</a></h1>
+        <h2>Golang开发者/Linux运维工程师</h2>
+      </div>
+      <div id="social" class="col span_6">
+        <ul>
+          
+          <li><a href="https://github.com/jellynian" target="_blank">SegmentFault</a></li>
+          
+          <li><a href="https://github.com/jellynian" target="_blank">GitHub</a></li>
+          <li><a href="http://jellynian.meindex.xml" type="application/rss+xml" target="_blank">RSS</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+
+  
+  <main id="list" role="main">
+    <div class="article-header light-gray"><h1>#Openstack</h1></div>
+    
+    <div class="summary">
+      <h2><a href="http://jellynian.me/post/2018-02-7-openstack-build-kali-image/">openstack kali linux 镜像制作 </a></h2>
+      <div class="meta">
+        Feb 7, 2018 &nbsp;
+        
+          #<a href="http://jellynian.me/tags/openstack">openstack</a>&nbsp;
+        
+          #<a href="http://jellynian.me/tags/sysadmin">sysadmin</a>&nbsp;
+        
+      </div>
+      概述  公司网络安全部门需要在我司私有云平台上搭建kali linux的云主机，用以进行渗透测试等服务，在互联网上搜索了很久也没有发现有现成的镜像可以使用，因此就自己制作了,镜像下载地址:http://jellynian.ufile.ucloud.com.cn/kali_xfce.qcow2, 镜像默认用户debian默认密码kalidebian 在此附上具体的制作教程。
+ 环境准备 操作系统: ubuntu操作系统（作者使用的是ubuntu16.04 主机IP为：10.0.3.102） 到任意一个镜像站下载kali linux的镜像，这里使用的是南阳理工学院的开源镜像 https://mirror.nyist.edu.cn/kali-images/
+# 安装virsh libvirt-bin apt-get install libvirt-bin qemu-kvm qemu-utils -y # 下载基础镜像(存储目录为 /var/lib/libvirt/) wget https://mirror.nyist.edu.cn/kali-images/current/kali-linux-xfce-2018.1-amd64.iso \ -O /var/lib/libvirt/kali-linux-xfce-2018.1-amd64.iso  创建img 磁盘 执行以下命令创建qcow2磁盘
+qemu-img create -f qcow2 /var/lib/libvirt/kali.qcow2 10G # 由于kali预装了大量软件，经测试 10G的基础磁盘大小是较为合适的， #作者曾经测试过2G，3G，5G等大小都失败了（或许是作者的测试方式有问题，您可以做更多的尝试）  开始制作  virt-install --virt-type kvm --name kali --ram 1024 \ --cdrom=/var/lib/libvirt/kali-linux-xfce-2018.1-amd64.iso \ --disk /var/lib/libvirt/kali.qcow2 \ --network network=default \ --graphics vnc,listen=0.0.0.0 --noautoconsole \ --os-type=linux --os-variant=debianwheezy  使用vnc客户端连接vnc 在vnc客户端直接输入宿主机的IP 即可连接,按照正常的流程安装此虚拟机，不过要注意的是磁盘分区不要使用lvm分区，将所有文件放入一个分区即可，使用整个磁盘,因为openstack在创建虚拟机时默认是自动分区，剩余的磁盘空间可以自动的加入此分区，如果你选择了lvm或者分了多个分区可能会导致自动分区无法正常工作(此为本人测试后的结果，可能存在一定的疏漏)。安装完成后,镜像会关机退出，我们使用 virsh list --all 来查看当前运行的所有机器，并使用virsh start kali 来启动该机器并再次使用vnc连接 &nbsp;
+      
+        <div class="read-more-link">
+        <a href="http://jellynian.me/post/2018-02-7-openstack-build-kali-image/">Read More…</a>
+        </div>
+      
+    </div>
+    
+  </main>
+
+
+  
+  <footer role="contentinfo">
+    <div style="text-align:center;">
+      <img src="http://jellynian.me/img/29446726.jpeg" width="48" height="48"><br>
+      Copyright (c) 2008 - 2018, Jelly Nian  all rights reserved.
+    </div>
+     <div>
+      <br>
+    </div>
+    <div style="text-align: center;" id="social">
+          <li><a href="http://jellynian.me/about/" target="_blank">关于我</a></li>
+          <li><a href="mailto://jellynian6@gmail.com" target="_blank">联系我</a></li>
+          <li><a href="http://jellynian.me/about/" target="_blank">个人作品</a></li>
+          <li><a href="http://jellynian.me/tags/" target="_blank">文章分类</a></li>
+    </div>
+  </footer>
+
+</div>
+
+<script src="http://jellynian.me/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+</body>
+</html>
+

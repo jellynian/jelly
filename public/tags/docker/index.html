@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="">
+<head>
+
+  
+  <meta charset="UTF-8">
+  <title>
+    Docker | Jelly&#39;s Book
+  </title>
+
+
+  
+  <meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1,initial-scale=1">
+
+  
+  <link rel="canonical" href="http://jellynian.me/tags/docker/"/>
+
+  
+  <link rel="stylesheet" href="http://jellynian.me/css/sanitize.css">
+  <link rel="stylesheet" href="http://jellynian.me/css/responsive.css">
+  <link rel="stylesheet" href="http://jellynian.me/css/highlight_monokai.css">
+  <link rel="stylesheet" href="http://jellynian.me/css/theme.css">
+  <link rel="stylesheet" href="http://jellynian.me/css/custom.css">
+  
+  
+  <link href="http://jellynian.meindex.xml" rel="alternate" type="application/rss+xml" title="Jelly&#39;s Book" />
+  <link href="http://jellynian.meindex.xml" rel="feed" type="application/rss+xml" title="Jelly&#39;s Book" />
+
+  
+  
+
+
+</head>
+
+
+
+<body>
+<div class="container">
+
+  
+  <header role="banner">
+    <div class="row gutters">
+      <div id="site-title" class="col span_6">
+        <h1><a href="http://jellynian.me">Jelly&#39;s Book</a></h1>
+        <h2>Golang开发者/Linux运维工程师</h2>
+      </div>
+      <div id="social" class="col span_6">
+        <ul>
+          
+          <li><a href="https://github.com/jellynian" target="_blank">SegmentFault</a></li>
+          
+          <li><a href="https://github.com/jellynian" target="_blank">GitHub</a></li>
+          <li><a href="http://jellynian.meindex.xml" type="application/rss+xml" target="_blank">RSS</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+
+  
+  <main id="list" role="main">
+    <div class="article-header light-gray"><h1>#Docker</h1></div>
+    
+    <div class="summary">
+      <h2><a href="http://jellynian.me/post/2018-03-14-docker-simple-base-tutor/">docker 精简基础教程 </a></h2>
+      <div class="meta">
+        Mar 14, 2018 &nbsp;
+        
+          #<a href="http://jellynian.me/tags/docker">docker</a>&nbsp;
+        
+          #<a href="http://jellynian.me/tags/sysadmin">sysadmin</a>&nbsp;
+        
+      </div>
+      安装docker  官方文档的参考链接 https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce-1
+ 卸载旧版本docker
+sudo apt-get remove docker docker-engine docker.io sudo apt install software-properties-common #安装工具  信任密钥:
+ curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -  添加源:
+ sudo add-apt-repository &quot;deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable&quot;  安装docker
+sudo apt-get install docker-ce -y  默认情况下，docker 命令会使用Unix socket 与 Docker 引擎通讯。而只有root用户和docker 组的用户才可以访问 Docker 引擎的 Unix socket。出于 安全考虑，一般 Linux 系统上不会直接使用root 用户。因此，更好地做法是将 需要使用 docker 的用户加入 docker 用户组。
+如果不存在docker组则建立 docker 组： &nbsp;
+      
+        <div class="read-more-link">
+        <a href="http://jellynian.me/post/2018-03-14-docker-simple-base-tutor/">Read More…</a>
+        </div>
+      
+    </div>
+    
+  </main>
+
+
+  
+  <footer role="contentinfo">
+    <div style="text-align:center;">
+      <img src="http://jellynian.me/img/29446726.jpeg" width="48" height="48"><br>
+      Copyright (c) 2008 - 2018, Jelly Nian  all rights reserved.
+    </div>
+     <div>
+      <br>
+    </div>
+    <div style="text-align: center;" id="social">
+          <li><a href="http://jellynian.me/about/" target="_blank">关于我</a></li>
+          <li><a href="mailto://jellynian6@gmail.com" target="_blank">联系我</a></li>
+          <li><a href="http://jellynian.me/about/" target="_blank">个人作品</a></li>
+          <li><a href="http://jellynian.me/tags/" target="_blank">文章分类</a></li>
+    </div>
+  </footer>
+
+</div>
+
+<script src="http://jellynian.me/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+</body>
+</html>
+

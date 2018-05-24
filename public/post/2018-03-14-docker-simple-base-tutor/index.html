@@ -1,0 +1,256 @@
+
+<!DOCTYPE html>
+<html lang="">
+<head>
+
+  
+  <meta charset="UTF-8">
+  <title>
+    docker 精简基础教程 | Jelly&#39;s Book
+  </title>
+
+
+  
+  <meta name="viewport" content="width=device-width,user-scalable=no,maximum-scale=1,initial-scale=1">
+
+  
+  <link rel="canonical" href="http://jellynian.me/post/2018-03-14-docker-simple-base-tutor/"/>
+
+  
+  <link rel="stylesheet" href="http://jellynian.me/css/sanitize.css">
+  <link rel="stylesheet" href="http://jellynian.me/css/responsive.css">
+  <link rel="stylesheet" href="http://jellynian.me/css/highlight_monokai.css">
+  <link rel="stylesheet" href="http://jellynian.me/css/theme.css">
+  <link rel="stylesheet" href="http://jellynian.me/css/custom.css">
+  
+  
+  <link href="http://jellynian.meindex.xml" rel="alternate" type="application/rss+xml" title="Jelly&#39;s Book" />
+  <link href="http://jellynian.meindex.xml" rel="feed" type="application/rss+xml" title="Jelly&#39;s Book" />
+
+  
+  
+
+
+</head>
+
+
+
+<body>
+<div class="container">
+
+  
+  <header role="banner">
+    <div class="row gutters">
+      <div id="site-title" class="col span_6">
+        <h1><a href="http://jellynian.me">Jelly&#39;s Book</a></h1>
+        <h2>Golang开发者/Linux运维工程师</h2>
+      </div>
+      <div id="social" class="col span_6">
+        <ul>
+          
+          <li><a href="https://github.com/jellynian" target="_blank">SegmentFault</a></li>
+          
+          <li><a href="https://github.com/jellynian" target="_blank">GitHub</a></li>
+          <li><a href="http://jellynian.meindex.xml" type="application/rss+xml" target="_blank">RSS</a></li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+
+  
+  <main id="single" role="main">
+    <div class="article-header">
+      <h1>docker 精简基础教程</h1>
+      <div class="meta">
+        Mar 14, 2018 &nbsp;
+        
+          #<a href="http://jellynian.me/tags/docker">docker</a>&nbsp;
+        
+          #<a href="http://jellynian.me/tags/sysadmin">sysadmin</a>&nbsp;
+        
+      </div>
+    </div>
+    <article>
+      
+
+<h2 id="安装docker">安装docker</h2>
+
+<blockquote>
+<p>官方文档的参考链接 <a href="https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce-1">https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce-1</a></p>
+</blockquote>
+
+<p>卸载旧版本docker</p>
+
+<pre><code>sudo apt-get remove docker docker-engine docker.io
+sudo apt install software-properties-common #安装工具
+</code></pre>
+
+<p>信任密钥:</p>
+
+<pre><code> curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -
+</code></pre>
+
+<p>添加源:</p>
+
+<pre><code> sudo add-apt-repository &quot;deb [arch=amd64] https://mirrors.aliyun.com/docker-ce/linux/ubuntu  $(lsb_release -cs) stable&quot;
+</code></pre>
+
+<p>安装docker</p>
+
+<pre><code>sudo apt-get install docker-ce -y
+</code></pre>
+
+<p>默认情况下，<code>docker</code>  命令会使用Unix   socket  与   Docker  引擎通讯。而只有<code>root</code>用户和<code>docker</code>   组的用户才可以访问   Docker  引擎的 Unix    socket。出于 安全考虑，一般   Linux   系统上不会直接使用<code>root</code>   用户。因此，更好地做法是将 需要使用  docker      的用户加入   <code>docker</code>   用户组。</p>
+
+<p>如果不存在<code>docker</code>组则建立       docker      组：</p>
+
+<pre><code>$   sudo groupadd docker
+</code></pre>
+
+<p>将当前用户加入docker组：</p>
+
+<pre><code>$   sudo usermod -aG docker $USER
+</code></pre>
+
+<p>之后logout当前用户，再login 就可以使用普通用户操作docker了</p>
+
+<h2 id="拉取镜像">拉取镜像：</h2>
+
+<pre><code>docker pull ubuntu
+</code></pre>
+
+<p>运行docker容器</p>
+
+<pre><code>docker run -it ubuntu /bin/bash 
+</code></pre>
+
+<p>Docker  包括三个基本概念
+镜像（Image） 容器（Container） 仓库（Repository）</p>
+
+<h2 id="获取镜像">获取镜像</h2>
+
+<p>从   Docker  Registry    获取镜像的命令是        docker  pull    。其命令格式为</p>
+
+<pre><code>docker  pull    [选项]    [Docker Registry地址]&lt;仓库名&gt;:&lt;标签&gt;
+</code></pre>
+
+<p>拉取ubuntu 16.04的镜像</p>
+
+<pre><code>docker  pull    ubuntu:16.04 
+</code></pre>
+
+<p>拉取alpine镜像
+&gt; Alpine Linux 是一个社区开发的面向安全应用的轻量级Linux发行版,只有4M左右。</p>
+
+<pre><code>docker pull alpine
+</code></pre>
+
+<p>列出已经下载到的镜像</p>
+
+<pre><code>jelly@MiWiFi-R3-srv:~$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+alpine              latest              3fd9065eaf02        7 weeks ago         4.15MB
+</code></pre>
+
+<p>基本的操作</p>
+
+<pre><code>docker ps # 查看当前运行中的容器
+docker ps -a # 查看所有的容器
+docker top 容器名或容器id #查看容器中运行的进程
+docker attach 容器名或容器id # attach 如果要正常退出不关闭容器，请按Ctrl+P+Q进行退出容器。
+docker exec -it 容器名或容器id /bin/bash # 以交互的方式在容器中运行一个进程
+</code></pre>
+
+<p>使用<code>docker commit</code> 构建镜像</p>
+
+<pre><code>docker run --name webserver  -d -p 80:80 nginx 
+
+docker exec -it webserver /bin/bash
+
+echo &quot;&lt;h1&gt; Hello World &lt;/h1&gt;&quot; &gt; /usr/share/nginx/html/index.html
+</code></pre>
+
+<p><code>docker commit</code> 的帮助</p>
+
+<pre><code>docker commit  --help
+
+Usage:  docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
+
+Create a new image from a container's changes
+
+Options:
+  -a, --author string    Author (e.g., &quot;John Hannibal Smith &lt;hannibal@a-team.com&gt;&quot;)
+  -c, --change list      Apply Dockerfile instruction to the created image
+  -m, --message string   Commit message
+  -p, --pause            Pause container during commit (default true)
+</code></pre>
+
+<p>打开页面查看效果</p>
+
+<pre><code>curl http://localhost:80 
+</code></pre>
+
+<p>提交一个新镜像到本地</p>
+
+<pre><code>docker commit -a &quot;jelly &lt;jelly@yunio.com&gt;&quot; -m &quot;modify index.html&quot;  webserver cagetest_helloworld:v1.0
+</code></pre>
+
+    </article>
+    
+ 
+	<div id="container"></div>
+	<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+	<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+	<script>
+	var gitment = new Gitment({
+	  id: '', 
+	  owner: 'jellynian',
+	  repo: 'jellynian.github.io',
+	  oauth: {
+	    client_id: 'cd6bbe866a499164e4fe',
+	    client_secret: '7167a6ab27aa68acc60bef19dabc889c881a4f48',
+	  },
+	})
+	gitment.render('container')
+	</script>
+
+  </main>
+  
+  <nav class="pagination-single">
+    
+      <span class="previous">&larr; <a href="http://jellynian.me/post/2018-03-02-setup-amazing-python-ide-based-on-vim/" rel="prev">使用vim搭建强大的Python IDE</a></span>
+    
+    
+      <span class="next"><a href="http://jellynian.me/about/" rel="next">about|关于</a> &rarr;</span>
+    
+  </nav>
+
+
+  
+  <footer role="contentinfo">
+    <div style="text-align:center;">
+      <img src="http://jellynian.me/img/29446726.jpeg" width="48" height="48"><br>
+      Copyright (c) 2008 - 2018, Jelly Nian  all rights reserved.
+    </div>
+     <div>
+      <br>
+    </div>
+    <div style="text-align: center;" id="social">
+          <li><a href="http://jellynian.me/about/" target="_blank">关于我</a></li>
+          <li><a href="mailto://jellynian6@gmail.com" target="_blank">联系我</a></li>
+          <li><a href="http://jellynian.me/about/" target="_blank">个人作品</a></li>
+          <li><a href="http://jellynian.me/tags/" target="_blank">文章分类</a></li>
+    </div>
+  </footer>
+
+</div>
+
+<script src="http://jellynian.me/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+</body>
+</html>
+

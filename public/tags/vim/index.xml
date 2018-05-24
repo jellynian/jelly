@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vim on Jelly&#39;s Book</title>
+    <link>http://jellynian.me/tags/vim/</link>
+    <description>Recent content in Vim on Jelly&#39;s Book</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 02 Mar 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://jellynian.me/tags/vim/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>使用vim搭建强大的Python IDE</title>
+      <link>http://jellynian.me/post/2018-03-02-setup-amazing-python-ide-based-on-vim/</link>
+      <pubDate>Fri, 02 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://jellynian.me/post/2018-03-02-setup-amazing-python-ide-based-on-vim/</guid>
+      <description>安装vim8 ubuntu 16.04 默认的vim为vim7，我们需要较为新的vim8 来支持更多的新特性。你可以使用命令 vim --version 来查看你本机的vim 版本。
+sudo add-apt-repository ppa:jonathonf/vim -y sudo apt update sudo apt install vim  macos 安装则使用brew即可
+brew install vim  安装vim插件管理工具 Vundle 管理vim插件的工具有很多，我曾经使用过的有 vim-plug 和 Vundle 这里我们推荐Vundle.
+安装Vundle
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim  在 ~/.vimrc 文件中写入如下内容,写入完毕后保存退出，后续的文章会告诉大家每一个插件的作用。
+set nocompatible &amp;quot; be iMproved, required &amp;quot; set the runtime path to include Vundle and initialize set rtp+=~/.vim/bundle/Vundle.vim call vundle#begin(&#39;~/.vim/bundle/&#39;) &amp;quot; alternatively, pass a path where Vundle should install plugins &amp;quot;call vundle#begin(&#39;~/some/path/here&#39;) &amp;quot; let Vundle manage Vundle, required Plugin &#39;VundleVim/Vundle.</description>
+    </item>
+    
+  </channel>
+</rss>
