@@ -1,4 +1,4 @@
-baseurl = "http://jellynian.me"
+baseurl = "https://jellynian.me"
 title = "Jelly's Book"
 author = "JellyNina"
 canonifyurls = true
@@ -8,7 +8,7 @@ paginate = 10
 [Params]
 subtitle = "Golang开发者/Linux运维工程师"
 github = "https://github.com/jellynian"
-segmentfault = "https://github.com/jellynian"
+stackoverflow = "https://stackoverflow.com/users/9793014/nian-jelly"
 showsRSS = true
 profile = "/img/29446726.jpeg"
 copyright = "Copyright (c) 2008 - 2018, Jelly Nian  all rights reserved."
@@ -21,5 +21,3 @@ owner = "jellynian"
 repo = "jellynian.github.io"
 client_id = "cd6bbe866a499164e4fe"
 client_secret = "7167a6ab27aa68acc60bef19dabc889c881a4f48"
-
-

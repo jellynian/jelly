@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Sysadmin on Jelly&#39;s Book</title>
-    <link>http://jellynian.me/tags/sysadmin/</link>
+    <link>https://jellynian.me/tags/sysadmin/</link>
     <description>Recent content in Sysadmin on Jelly&#39;s Book</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Wed, 14 Mar 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://jellynian.me/tags/sysadmin/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://jellynian.me/tags/sysadmin/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>docker 精简基础教程</title>
-      <link>http://jellynian.me/post/2018-03-14-docker-simple-base-tutor/</link>
+      <link>https://jellynian.me/post/2018-03-14-docker-simple-base-tutor/</link>
       <pubDate>Wed, 14 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://jellynian.me/post/2018-03-14-docker-simple-base-tutor/</guid>
+      <guid>https://jellynian.me/post/2018-03-14-docker-simple-base-tutor/</guid>
       <description>安装docker  官方文档的参考链接 https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce-1
  卸载旧版本docker
 sudo apt-get remove docker docker-engine docker.io sudo apt install software-properties-common #安装工具  信任密钥:
@@ -27,10 +27,10 @@ sudo apt-get install docker-ce -y  默认情况下，docker 命令会使用Unix 
     
     <item>
       <title>openstack kali linux 镜像制作</title>
-      <link>http://jellynian.me/post/2018-02-7-openstack-build-kali-image/</link>
+      <link>https://jellynian.me/post/2018-02-7-openstack-build-kali-image/</link>
       <pubDate>Wed, 07 Feb 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://jellynian.me/post/2018-02-7-openstack-build-kali-image/</guid>
+      <guid>https://jellynian.me/post/2018-02-7-openstack-build-kali-image/</guid>
       <description>概述  公司网络安全部门需要在我司私有云平台上搭建kali linux的云主机，用以进行渗透测试等服务，在互联网上搜索了很久也没有发现有现成的镜像可以使用，因此就自己制作了,镜像下载地址:http://jellynian.ufile.ucloud.com.cn/kali_xfce.qcow2, 镜像默认用户debian默认密码kalidebian 在此附上具体的制作教程。
  环境准备 操作系统: ubuntu操作系统（作者使用的是ubuntu16.04 主机IP为：10.0.3.102） 到任意一个镜像站下载kali linux的镜像，这里使用的是南阳理工学院的开源镜像 https://mirror.nyist.edu.cn/kali-images/
 # 安装virsh libvirt-bin apt-get install libvirt-bin qemu-kvm qemu-utils -y # 下载基础镜像(存储目录为 /var/lib/libvirt/) wget https://mirror.nyist.edu.cn/kali-images/current/kali-linux-xfce-2018.1-amd64.iso \ -O /var/lib/libvirt/kali-linux-xfce-2018.1-amd64.iso  创建img 磁盘 执行以下命令创建qcow2磁盘
@@ -39,10 +39,10 @@ qemu-img create -f qcow2 /var/lib/libvirt/kali.qcow2 10G # 由于kali预装了�
     
     <item>
       <title>Ucloud配置haproxy&#43;keepalived(利用ucloud-API实现外网浮动IP切换)</title>
-      <link>http://jellynian.me/post/2018-01-27-haproxy-keepalived-ucloud/</link>
+      <link>https://jellynian.me/post/2018-01-27-haproxy-keepalived-ucloud/</link>
       <pubDate>Sat, 27 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://jellynian.me/post/2018-01-27-haproxy-keepalived-ucloud/</guid>
+      <guid>https://jellynian.me/post/2018-01-27-haproxy-keepalived-ucloud/</guid>
       <description>背景 先交代下事情发生的背景，公司在使用ucloud的负载均衡产品的过程中由于某种特殊的需求必须要自建外网负载均衡器，由于ucloud的云主机使用nat地址转化技术，外网IP的数据包被转发到了内网IP，而且外网IP是与云主机绑定的，所以就不能用传统的方式实现外网haproxy服务的高可用了，但是ucloud实现了切换公网IP的api，我们让keepalived在另一台机器挂掉的时候调用api来将该机器的外网浮动IP解除绑定，然后绑定到自己身上，api切换的时间极短保证了线上负载均衡器故障能够迅速切换。
 安装keepalived sudo apt update sudo apt install keepalived -y  准备脚本 下载ucloud sdk git clone https://github.com/ucloud/ucloud-sdk-python.git /etc/keepalived/script #下载ucloud python sdk 到 /etc/keepalived/script目录 cd /etc/keepalived/script # 进入 script 目录 cp config.simple.py config.py # 复制config.simple.py模板文件  编写脚本 修改 config.py 文件，
 #配置公私钥&amp;quot;&amp;quot;&amp;quot; public_key = &amp;quot;&amp;quot; #你的公钥 private_key = &amp;quot;&amp;quot; #你的私钥 project_id = &amp;quot;&amp;quot; # 项目ID 请在Dashbord 上获取 &amp;quot;&amp;quot;&amp;quot; #添加以下内容 EIPID=&amp;quot;eip-lb011e&amp;quot; #你需要浮动的EIP的ID MYUHOSTID=&amp;quot;uhost-33eitwa&amp;quot; #脚本部署在这台机器的ID，可在控制台上查看 注意，你脚本部署在哪台机器这个ID就是哪台机器的ID PEERUHOSTID=&amp;quot;uhost-333xvs&amp;quot; # 另一台机器的ID REGION=&amp;quot;hk&amp;quot; #地区 Region 可在ucloud官网查阅  接下来修改 bind_eip.</description>

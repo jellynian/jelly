@@ -2,56 +2,56 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Jelly&#39;s Book</title>
-    <link>http://jellynian.me/tags/</link>
+    <link>https://jellynian.me/tags/</link>
     <description>Recent content in Tags on Jelly&#39;s Book</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Wed, 14 Mar 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://jellynian.me/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://jellynian.me/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Docker</title>
-      <link>http://jellynian.me/tags/docker/</link>
+      <link>https://jellynian.me/tags/docker/</link>
       <pubDate>Wed, 14 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://jellynian.me/tags/docker/</guid>
+      <guid>https://jellynian.me/tags/docker/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Openstack</title>
-      <link>http://jellynian.me/tags/openstack/</link>
+      <link>https://jellynian.me/tags/openstack/</link>
       <pubDate>Wed, 07 Feb 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://jellynian.me/tags/openstack/</guid>
+      <guid>https://jellynian.me/tags/openstack/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Python</title>
-      <link>http://jellynian.me/tags/python/</link>
+      <link>https://jellynian.me/tags/python/</link>
       <pubDate>Fri, 02 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://jellynian.me/tags/python/</guid>
+      <guid>https://jellynian.me/tags/python/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Sysadmin</title>
-      <link>http://jellynian.me/tags/sysadmin/</link>
+      <link>https://jellynian.me/tags/sysadmin/</link>
       <pubDate>Wed, 14 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://jellynian.me/tags/sysadmin/</guid>
+      <guid>https://jellynian.me/tags/sysadmin/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Vim</title>
-      <link>http://jellynian.me/tags/vim/</link>
+      <link>https://jellynian.me/tags/vim/</link>
       <pubDate>Fri, 02 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://jellynian.me/tags/vim/</guid>
+      <guid>https://jellynian.me/tags/vim/</guid>
       <description></description>
     </item>
     
