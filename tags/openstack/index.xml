@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Openstack on Jelly&#39;s Book</title>
-    <link>http://jellynian.me/tags/openstack/</link>
+    <link>https://jellynian.me/tags/openstack/</link>
     <description>Recent content in Openstack on Jelly&#39;s Book</description>
     <generator>Hugo -- gohugo.io</generator>
     <lastBuildDate>Wed, 07 Feb 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://jellynian.me/tags/openstack/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://jellynian.me/tags/openstack/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>openstack kali linux 镜像制作</title>
-      <link>http://jellynian.me/post/2018-02-7-openstack-build-kali-image/</link>
+      <link>https://jellynian.me/post/2018-02-7-openstack-build-kali-image/</link>
       <pubDate>Wed, 07 Feb 2018 00:00:00 +0000</pubDate>
       
-      <guid>http://jellynian.me/post/2018-02-7-openstack-build-kali-image/</guid>
+      <guid>https://jellynian.me/post/2018-02-7-openstack-build-kali-image/</guid>
       <description>概述  公司网络安全部门需要在我司私有云平台上搭建kali linux的云主机，用以进行渗透测试等服务，在互联网上搜索了很久也没有发现有现成的镜像可以使用，因此就自己制作了,镜像下载地址:http://jellynian.ufile.ucloud.com.cn/kali_xfce.qcow2, 镜像默认用户debian默认密码kalidebian 在此附上具体的制作教程。
  环境准备 操作系统: ubuntu操作系统（作者使用的是ubuntu16.04 主机IP为：10.0.3.102） 到任意一个镜像站下载kali linux的镜像，这里使用的是南阳理工学院的开源镜像 https://mirror.nyist.edu.cn/kali-images/
 # 安装virsh libvirt-bin apt-get install libvirt-bin qemu-kvm qemu-utils -y # 下载基础镜像(存储目录为 /var/lib/libvirt/) wget https://mirror.nyist.edu.cn/kali-images/current/kali-linux-xfce-2018.1-amd64.iso \ -O /var/lib/libvirt/kali-linux-xfce-2018.1-amd64.iso  创建img 磁盘 执行以下命令创建qcow2磁盘
