@@ -6,4 +6,4 @@ git add --all
 git commit -m "update blog by deply script"
 git push origin develop
 git subtree push --prefix=public  origin master
-rsync -avzH --delete  ./public/  /usr/share/nginx/blog.labchan.com/   
+rsync -avzH --delete  ./public/  labchan:/usr/share/nginx/blog.labchan.com/   
